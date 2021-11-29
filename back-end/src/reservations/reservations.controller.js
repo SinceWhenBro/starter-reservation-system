@@ -5,9 +5,26 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 //const { next } = require("../../../front-end/src/utils/date-time");
 
-//need to use date utility functions 
-//unsure if im referencing the query var correctly
+//START OF US-03
+//MUST CONVERT TIMES IN ORDER TO COMPARE AGAINST EACH OTHER
+function timeIsValid(req,res,next){
+  reservationData = req.body.data;
+  const errors = [];
+  //if reservation is before 10:30am
+  if(reservationData.reservation_time ){
+    errors.push("too early")
+  }
+  //if reservation is after 9:30pm
+  if(reservationData.reservation_time ){
+    errors.push("too late")
+  }
+  //if the reservation is a past time for the day
+  if(reservationData.reservation_time ){
+    errors.push("too early for today")
+  }
+}
 
+//validation for input fields
 function reservationIsValid(req,res, next){
   reservationData = req.body.data;
   //if inout field doesn't exist
