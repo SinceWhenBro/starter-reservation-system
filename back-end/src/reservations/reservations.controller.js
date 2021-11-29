@@ -53,7 +53,7 @@ function dateIsValid(req, res, next) {
     console.log(reservationTime);
     const today = new Date();
   if(reservationDate && reservationDate.getDay() === 2){
-    next({status: 400, message: ["no tuesdays"]})
+    next({status: 400, message: ["closed"]})
   }
   //validation for past day 
   if(reservationTime && reservationTime < today) {

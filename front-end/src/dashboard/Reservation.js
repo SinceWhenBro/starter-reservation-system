@@ -32,23 +32,23 @@ function Reservation(){
     async function handleSubmit(event) {
         event.preventDefault();
         try{
-            await createReservation({...reservationData, people:Number(reservationData.people)});
+            await createReservation({...reservationData, people:Number(reservationData.people)})
+            let resDate = reservationData['reservation_date'];
+            //const response = await createReservation(reservationData);
+            //console.log(response);
+            setReservationData({...initialState})
+            history.push(`/dashboard?date=${resDate}`)
         }
         catch(error){
             setReservationsErrors(error.message);
             return;
         }
-        let resDate = reservationData['reservation_date'];
-        //const response = await createReservation(reservationData);
-        //console.log(response);
-        setReservationData({...initialState})
-        history.push(`/dashboard?date=${resDate}`)
     }
 
     return(
         
         <div>
-        {reservationErrors.length === 0 ? null : <ul className="alert alert-danger">{reservationErrors.map((r) => <li>{r}</li>)}</ul> }
+        {reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
         <h1>Create a reservation</h1>
         <form onSubmit={handleSubmit}>
             <div className="form-row">
