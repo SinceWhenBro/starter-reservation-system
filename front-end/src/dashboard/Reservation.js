@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {useHistory} from "react-router-dom"
-
+import { useHistory } from "react-router-dom"
+import { createReservation } from "../utils/api"
 //create state 
 
 //save each input as a key value pair in an obj
@@ -9,6 +9,16 @@ import {useHistory} from "react-router-dom"
 
 function Reservation(){
     const [reservationData, setReservationData] = useState("");
+    const [reservationErrors, setReservationsErrors] = useState([]);
+    const initialState = {
+        first_name: "",
+        last_name: "",
+        mobile_number: "",
+        reservation_date: '',
+        reservation_time: '',
+        people: "0",
+        
+      };
     const history = useHistory();
 
     function handleChange({target}){
@@ -16,19 +26,29 @@ function Reservation(){
     }
 
     function handleCancel(event){
-        history.push();
+        history.goBack();
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        console.log(reservationData);
-        //const response = await createReservation(reservationData);
-        //console.log(response);
-        history.push(`/dashboard?date=${reservationData['reservation_date']}`)
+        try{
+            await createReservation({...reservationData, people:Number(reservationData.people)})
+            let resDate = reservationData['reservation_date'];
+            //const response = await createReservation(reservationData);
+            //console.log(response);
+            setReservationData({...initialState})
+            history.push(`/dashboard?date=${resDate}`)
+        }
+        catch(error){
+            setReservationsErrors(error.message);
+            return;
+        }
     }
 
     return(
+        
         <div>
+        {reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
         <h1>Create a reservation</h1>
         <form onSubmit={handleSubmit}>
             <div className="form-row">
