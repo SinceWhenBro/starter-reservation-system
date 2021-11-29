@@ -48,7 +48,7 @@ function Reservation(){
     return(
         
         <div>
-        {reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
+        { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
         <h1>Create a reservation</h1>
         <form onSubmit={handleSubmit}>
             <div className="form-row">
