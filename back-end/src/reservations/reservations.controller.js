@@ -52,18 +52,26 @@ function dateIsValid(req, res, next) {
     const reservationTime = new Date(reservation.reservation_date + " " + reservation.reservation_time);
     console.log(reservationTime);
     const today = new Date();
+    const errors = []
   if(reservationDate && reservationDate.getDay() === 2){
-    next({status: 400, message: ["closed"]})
+    
+    errors.push("closed")
   }
   //validation for past day 
   if(reservationTime && reservationTime < today) {
-    next({status: 400, message: ["future"], });
+    errors.push("future")
+  }
+  if(errors.length > 0){
+    next({status: 400, message: errors})
   }
   next();
 }
 
 async function list(req, res) {
+  console.log("list")
+  console.log(req.query);
   const data = await service.list(req.query.date)
+  console.log(data);
   res.json({
     data: data,
   });

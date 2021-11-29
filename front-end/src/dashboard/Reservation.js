@@ -26,7 +26,7 @@ function Reservation(){
     }
 
     function handleCancel(event){
-        history.push();
+        history.goBack();
     }
 
     async function handleSubmit(event) {
