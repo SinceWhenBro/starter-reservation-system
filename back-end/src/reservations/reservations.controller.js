@@ -21,26 +21,30 @@ function timeIsValid(req,res,next){
     errors.push("too early")
   }
   //if reservation is after 9:30pm
-  if(convertedReservation.getHours() >= 9 && convertedReservation.getMinutes() >= 30){
+  console.log(convertedReservation.getHours() , convertedReservation.getMinutes(), convertedReservation.getHours() >= 21 && convertedReservation.getMinutes() >= 30 )
+  if(convertedReservation.getHours() >= 21 && convertedReservation.getMinutes() >= 30){
     errors.push("too late")
   }
   //if the reservation is a past time for the day
   console.log(Date.now())
   console.log(convertedReservation.getTime())
+  console.log("too early for today", convertedReservation.getTime() < Date.now())
   if(convertedReservation.getTime() < Date.now()){
     errors.push("too early for today")
-    console.log(Date.now())
   }
-  if(errors.length > 1){
+  console.log(errors);
+  if(errors.length >= 1){
     next({status: 400, message: errors })
+  } else {
+    next();
   }
-  next();
 }
 
 //validation for input fields
 function reservationIsValid(req,res, next){
   reservationData = req.body.data;
   //if inout field doesn't exist
+  console.log(reservationData);
   if(!reservationData){
     next({status:400, message: "data is missing"})
   }
@@ -78,7 +82,7 @@ function dateIsValid(req, res, next) {
   const reservation = req.body.data;
   console.log(reservation.reservation_date);
     const reservationDate = new Date(reservation.reservation_date +  " 00:00:00" );
-    console.log(reservationDate);
+    console.log("reservation date:", reservationDate);
     const reservationTime = new Date(reservation.reservation_date + " " + reservation.reservation_time);
     console.log(reservationTime);
     const today = new Date();
