@@ -8,20 +8,33 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 //START OF US-03
 //MUST CONVERT TIMES IN ORDER TO COMPARE AGAINST EACH OTHER
 function timeIsValid(req,res,next){
-  reservationData = req.body.data;
+  const reservationDate = req.body.data.reservation_date
+  const reservationTime = req.body.data.reservation_time
+  //convert the res time to number
+  const convertedReservation = new Date(reservationDate + " " + reservationTime)
+  //compare res time to 10:30
+  console.log(convertedReservation);
+  console.log(convertedReservation.getMinutes())
   const errors = [];
   //if reservation is before 10:30am
-  if(reservationData.reservation_time ){
+  if(convertedReservation.getHours() <= 10 && convertedReservation.getMinutes() <= 30){
     errors.push("too early")
   }
   //if reservation is after 9:30pm
-  if(reservationData.reservation_time ){
+  if(convertedReservation.getHours() >= 9 && convertedReservation.getMinutes() >= 30){
     errors.push("too late")
   }
   //if the reservation is a past time for the day
-  if(reservationData.reservation_time ){
+  console.log(Date.now())
+  console.log(convertedReservation.getTime())
+  if(convertedReservation.getTime() < Date.now()){
     errors.push("too early for today")
+    console.log(Date.now())
   }
+  if(errors.length > 1){
+    next({status: 400, message: errors })
+  }
+  next();
 }
 
 //validation for input fields
@@ -101,5 +114,5 @@ async function create(req, res){
 
 module.exports = {
   list: [asyncErrorBoundary(list)],
-  create: [reservationIsValid, dateIsValid, asyncErrorBoundary(create)]
+  create: [reservationIsValid, timeIsValid, dateIsValid, asyncErrorBoundary(create)]
 };
