@@ -17,12 +17,18 @@ function timeIsValid(req,res,next){
   console.log(convertedReservation.getMinutes())
   const errors = [];
   //if reservation is before 10:30am
-  if(convertedReservation.getHours() <= 10 && convertedReservation.getMinutes() <= 30){
+  if(convertedReservation.getHours() < 10){
+    errors.push("too early")
+  }
+  if(convertedReservation.getHours() > 21 ){
+    errors.push("too late")
+  }
+  if(convertedReservation.getHours() === 10 && convertedReservation.getMinutes() <= 30){
     errors.push("too early")
   }
   //if reservation is after 9:30pm
   console.log(convertedReservation.getHours() , convertedReservation.getMinutes(), convertedReservation.getHours() >= 21 && convertedReservation.getMinutes() >= 30 )
-  if(convertedReservation.getHours() >= 21 && convertedReservation.getMinutes() >= 30){
+  if(convertedReservation.getHours() === 21 && convertedReservation.getMinutes() >= 30){
     errors.push("too late")
   }
   //if the reservation is a past time for the day
