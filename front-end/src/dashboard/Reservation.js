@@ -83,6 +83,7 @@ function Reservation(){
                 <div className="col">
                     <button type="submit" className="btn btn-primary mb-2">Submit</button>
                     <button type="cancel" className="btn btn-danger mb-2" onClick={handleCancel}>Cancel</button>
+                    <button type="cancel" className="btn btn-danger mb-2" >Seat</button>
                 </div>
             </div>
         </form>
