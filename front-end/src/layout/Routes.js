@@ -16,7 +16,7 @@ import { today } from "../utils/date-time";
 function Routes() {
   const date = new URLSearchParams(useLocation().search).get("date");
   
-  console.log(date);
+
   return (
     <Switch>
       <Route exact={true} path="/">

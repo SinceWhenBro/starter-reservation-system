@@ -4,18 +4,32 @@ const tableName = "tables";
 
 function list(date) {
   return knex(tableName)
-    .orderBy("table_name");
+  .select("*")
+  .orderBy("table_name");
 }
 
 function create(table) {
+  console.log("CREATE TABLE:",table)
   return knex(tableName)
     .insert(table, "*")
-    .then((createdTables) => createdTables[0]);
 }
 
+function update(table) {
+  return knex(tableName)
+  .where("table_id", table.table_id)
+  .update(table)
+}
+
+function read(table_id) {
+  return knex(tableName)
+  .where("table_id", table_id)
+  .select("*")
+}
 
 
 module.exports = {
   create,
-  list
+  list,
+  update,
+  read
 };

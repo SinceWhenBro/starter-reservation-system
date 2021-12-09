@@ -26,6 +26,7 @@ function Reservation(){
     }
 
     function handleCancel(event){
+        console.log("cancel")
         history.goBack();
     }
 
@@ -40,6 +41,7 @@ function Reservation(){
             history.push(`/dashboard?date=${resDate}`)
         }
         catch(error){
+            console.error(error)
             setReservationsErrors(error.message);
             return;
         }
@@ -83,7 +85,7 @@ function Reservation(){
                 <div className="col">
                     <button type="submit" className="btn btn-primary mb-2">Submit</button>
                     <button type="cancel" className="btn btn-danger mb-2" onClick={handleCancel}>Cancel</button>
-                    <button type="cancel" className="btn btn-danger mb-2" >Seat</button>
+                    <button className="btn btn-danger mb-2" >Seat</button>
                 </div>
             </div>
         </form>

@@ -95,6 +95,15 @@ function dateIsValid(req, res, next) {
   next();
 }
 
+async function reservationExists(req,res,next){
+  const data = (await service.read(Number(req.params.reservation_Id)))
+  console.log(data)
+  if(!data.length){
+    return next({status: 404, message: `${req.params.reservation_Id} not found`})
+  }
+  res.locals.reservation = data[0]
+  next()
+}
 async function list(req, res) {
   console.log("list")
   console.log(req.query);
@@ -110,7 +119,12 @@ async function create(req, res){
   res.status(201).json({data});
 }
 
+function read(req,res,next){
+  res.status(200).json({data: res.locals.reservation})
+}
+
 module.exports = {
   list: [asyncErrorBoundary(list)],
-  create: [reservationIsValid, dateIsValid, timeIsValid, asyncErrorBoundary(create)]
+  create: [reservationIsValid, dateIsValid, timeIsValid, asyncErrorBoundary(create)],
+  read: [asyncErrorBoundary(reservationExists), read]
 };

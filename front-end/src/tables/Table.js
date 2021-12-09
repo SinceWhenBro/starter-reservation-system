@@ -32,7 +32,6 @@ function Tables(){
         event.preventDefault();
         event.stopPropagation();
         setError(null)
-        console.log(table);
         createTable(table)
             .then(() => {
                 history.push(`/dashboard?date=${today()}`);

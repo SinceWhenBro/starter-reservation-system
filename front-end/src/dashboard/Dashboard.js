@@ -19,7 +19,7 @@ function Dashboard({ date }) {
       {JSON.stringify(table)}
     </li>
   );
-  console.log(tableList);
+  
   useEffect(loadDashboard, [date]);
   useEffect(loadTables, []);
 
