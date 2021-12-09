@@ -11,28 +11,26 @@ function timeIsValid(req,res,next){
   const reservationDate = req.body.data.reservation_date
   const reservationTime = req.body.data.reservation_time
   //convert the res time to number
-  const convertedReservation = new Date(reservationDate + " " + reservationTime)
+  const [reservationHour, reservationMinutes] = reservationTime.split(":");
+  console.log("hours and minutes",reservationHour, reservationMinutes)
+  console.log(reservationHour <= 10 && reservationMinutes <= 30)
+  console.log(reservationHour >= 23 && reservationMinutes >= 30)
   //compare res time to 10:30
-  console.log(convertedReservation);
-  console.log(convertedReservation.getMinutes())
   const errors = [];
-  //if reservation is before 10:30am
-  if(convertedReservation.getHours() <= 10 && convertedReservation.getMinutes() <= 30){
-    errors.push("too early")
-  }
-  //if reservation is after 9:30pm
-  if(convertedReservation.getHours() >= 9 && convertedReservation.getMinutes() >= 30){
-    errors.push("too late")
-  }
-  //if the reservation is a past time for the day
-  console.log(Date.now())
-  console.log(convertedReservation.getTime())
-  if(convertedReservation.getTime() < Date.now()){
-    errors.push("too early for today")
-    console.log(Date.now())
-  }
-  if(errors.length > 1){
-    next({status: 400, message: errors })
+  // reservation date > currentDate
+  // determines if reservation is future date
+  
+    // if reservation is before 10:30am
+    if(reservationHour <= 10 && reservationMinutes <= 30){
+      errors.push("too early")
+    }
+    //if reservation is after 9:30pm
+    else if((reservationHour >= 21 && reservationMinutes >= 30) || reservationHour >= 22){
+      errors.push("too late")
+    }
+    console.log('errors', errors)
+  if(errors.length >= 1){
+    return next({status: 400, message: errors })
   }
   next();
 }
@@ -114,5 +112,5 @@ async function create(req, res){
 
 module.exports = {
   list: [asyncErrorBoundary(list)],
-  create: [reservationIsValid, timeIsValid, dateIsValid, asyncErrorBoundary(create)]
+  create: [reservationIsValid, dateIsValid, timeIsValid, asyncErrorBoundary(create)]
 };

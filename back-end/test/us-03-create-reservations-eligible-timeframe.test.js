@@ -20,7 +20,7 @@ describe("US-03 - Create reservations eligible timeframe", () => {
   });
 
   describe("POST /reservations", () => {
-    test("returns 400 if reservation_time is not available", async () => {
+    test.only("returns 400 if reservation_time is not available", async () => {
       const data = {
         first_name: "first",
         last_name: "last",
