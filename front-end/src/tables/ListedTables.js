@@ -8,6 +8,9 @@ function ListedTables({ table, setTables, setReservations, date }){
           <p className="col text-center my-1">Table: {table.table_name}</p>
           <p className="col text-center my-1">This table can seat: {table.capacity}</p>
           
+          <div data-table-id-finish={table.table_id} className="d-flex justify-content-center">
+              {table.reservation_id ? "occupied" : "free"}
+          </div>
           {table.reservation_id && (
             <div className="d-flex justify-content-center">
             <button
