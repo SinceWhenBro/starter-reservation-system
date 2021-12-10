@@ -10,7 +10,8 @@ function ListedReservations({ reservation }){
             <div className="d-flex justify-content-center">
             <p>{reservation.first_name}</p>
             <p>{reservation.last_name}</p>
-            <Link to={`/reservations/${reservation.reservation_id}/seat`}><button className="btn btn-danger mb-2">Seat</button></Link>
+            <p data-reservation-id-status={reservation.reservation_id} >{reservation.status}</p>
+            {reservation.status === "booked" && <Link to={`/reservations/${reservation.reservation_id}/seat`}><button className="btn btn-danger mb-2">Seat</button></Link>}
             </div>
           )}
         </div>

@@ -63,7 +63,14 @@ function tableIsValid(req,res,next){
       errors.push("capacity");
     }
     if(errors.length > 0){
-      next({status: 400, message: errors});
+      return next({status: 400, message: errors});
+    }
+    next();
+  }
+
+  function reservationIsNotSeated(req,res,next){
+    if(res.locals.reservation.status === "seated"){
+      return next({status:400, message:"already seated"})
     }
     next();
   }
@@ -83,6 +90,7 @@ async function create(req, res){
 }
 
 async function destroy(req,res){
+  await reservationsService.updateStatus(res.locals.table.reservation_id, "finished")
   const data = (await service.destroy(res.locals.table))[0];
   res.status(200).json({data});
 }
@@ -90,12 +98,13 @@ async function destroy(req,res){
 async function update(req, res, next){
   res.locals.table.reservation_id = res.locals.reservation.reservation_id;
   const data = (await service.update(res.locals.table))[0]
+  await reservationsService.updateStatus(res.locals.reservation.reservation_id, "seated")
   res.status(200).json({data})
 }
 
 module.exports = {
   list: [asyncErrorBoundary(list)],
   create: [tableIsValid, asyncErrorBoundary(create)],
-  update: [asyncErrorBoundary(tableExists), asyncErrorBoundary(seatIsValid), asyncErrorBoundary(update)],
+  update: [asyncErrorBoundary(tableExists), asyncErrorBoundary(seatIsValid), reservationIsNotSeated, asyncErrorBoundary(update)],
   destroy: [asyncErrorBoundary(tableExists), isTableOccupied, asyncErrorBoundary(destroy)]
 };
