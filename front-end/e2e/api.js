@@ -88,6 +88,8 @@ async function seatReservation(reservation_id, table_id) {
   return await fetchJson(url, options, {});
 }
 
+
+
 module.exports = {
   createReservation,
   createTable,

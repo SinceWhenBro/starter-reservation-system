@@ -26,10 +26,18 @@ function read(table_id) {
   .select("*")
 }
 
+function destroy(table) {
+  return knex(tableName)
+  .where("table_id", table.table_id)
+  .update("reservation_id", null)
+}
+
+
 
 module.exports = {
   create,
   list,
   update,
-  read
+  read,
+  destroy,
 };

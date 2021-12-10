@@ -30,6 +30,14 @@ async function seatIsValid(req,res,next){
   next();
 }
 
+function isTableOccupied(req,res,next){
+  if(res.locals.table.reservation_id) {
+    next()
+  } else {
+    next({status: 400, message: "not occupied"})
+  }
+}
+
 async function tableExists(req,res,next){
     const data = (await service.read(Number(req.params.table_id)))
     console.log(data)
@@ -74,6 +82,11 @@ async function create(req, res){
   res.status(201).json({data});
 }
 
+async function destroy(req,res){
+  const data = (await service.destroy(res.locals.table))[0];
+  res.status(200).json({data});
+}
+
 async function update(req, res, next){
   res.locals.table.reservation_id = res.locals.reservation.reservation_id;
   const data = (await service.update(res.locals.table))[0]
@@ -83,5 +96,6 @@ async function update(req, res, next){
 module.exports = {
   list: [asyncErrorBoundary(list)],
   create: [tableIsValid, asyncErrorBoundary(create)],
-  update: [asyncErrorBoundary(tableExists), asyncErrorBoundary(seatIsValid), update]
+  update: [asyncErrorBoundary(tableExists), asyncErrorBoundary(seatIsValid), asyncErrorBoundary(update)],
+  destroy: [asyncErrorBoundary(tableExists), isTableOccupied, asyncErrorBoundary(destroy)]
 };
