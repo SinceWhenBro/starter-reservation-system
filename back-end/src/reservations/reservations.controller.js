@@ -112,7 +112,7 @@ function statusIsValid(req, res, next){
     return next({status: 400, message: "a finished reservation cannot be updated"})
   }
 
-  const validStatus = ["booked", "seated", "finished"]
+  const validStatus = ["booked", "seated", "finished", "cancelled"]
   if(validStatus.includes(req.body.data.status)){
     return next();
   }
@@ -148,7 +148,11 @@ function read(req,res,next){
 
 async function updateStatus(req, res, next){
   const data = (await service.updateStatus(Number(req.params.reservation_id), req.body.data.status))[0];
-  console.log(data);
+  res.status(200).json({data})
+}
+
+async function update(req, res, next){
+  const data = (await service.update(Number(req.params.reservation_id), req.body.data))[0];
   res.status(200).json({data})
 }
 
@@ -157,4 +161,5 @@ module.exports = {
   create: [reservationIsValid, dateIsValid, timeIsValid, asyncErrorBoundary(create)],
   read: [asyncErrorBoundary(reservationExists), read],
   updateStatus: [asyncErrorBoundary(reservationExists), statusIsValid, asyncErrorBoundary(updateStatus)],
+  update: [asyncErrorBoundary(reservationExists), reservationIsValid, dateIsValid, timeIsValid, asyncErrorBoundary(update)]
 };

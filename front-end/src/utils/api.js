@@ -69,6 +69,16 @@ export async function listReservations(params, signal) {
     .then(formatReservationTime);
 }
 
+export async function readReservation(reservationId, signal){
+  const url = `${API_BASE_URL}/reservations/${reservationId}`
+  const options = {
+    method: "GET",
+    headers,
+    signal
+  };
+  return await fetchJson(url, options, {});
+}
+
 //need to create reservation in database
 export async function createReservation(reservation, signal){
   const url = `${API_BASE_URL}/reservations`
@@ -118,6 +128,26 @@ export async function finishTable(table_id, signal){
     method: "DELETE",
     headers,
     signal,
+  };
+  return await fetchJson(url, options, {});
+}
+
+export async function updateReservation(reservation){
+  const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({data: reservation})
+  };
+  return await fetchJson(url, options, {});
+}
+
+export async function updateReservationStatus(reservation){
+  const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}/status`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({data: {status: reservation.status}})
   };
   return await fetchJson(url, options, {});
 }

@@ -9,7 +9,7 @@ function create(reservationData){
 function list(reservationDate){
     return db("reservations as r")
     .where({"r.reservation_date": reservationDate})
-    .whereNot({"r.status": "finished"})
+    .whereNot({"r.status": "finished", "r.status": "cancelled"})
     .orderBy("r.reservation_time");
 }
 
@@ -28,6 +28,14 @@ function updateStatus(reservationId, status){
     .returning("*");
 }
 
+function update(reservationId, reservation){
+    return db("reservations")
+    .select("*")
+    .where({"reservation_id": reservationId})
+    .update(reservation)
+    .returning("*");
+}
+
 function search(mobile_number) {
     return db("reservations")
         .whereRaw(
@@ -43,4 +51,5 @@ module.exports = {
     read,
     updateStatus,
     search,
+    update,
 }
