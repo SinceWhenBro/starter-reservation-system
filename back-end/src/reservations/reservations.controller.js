@@ -3,6 +3,7 @@
  */
 const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const e = require("express");
 //const { next } = require("../../../front-end/src/utils/date-time");
 
 //START OF US-03
@@ -118,10 +119,18 @@ function statusIsValid(req, res, next){
   next({status: 400, message: "unknown"})
 }
 
-async function list(req, res) {
+async function list(req, res, next) {
   console.log("list")
   console.log(req.query);
-  const data = await service.list(req.query.date)
+  let data;
+  if(req.query.date){
+     data = await service.list(req.query.date)
+  } else if(req.query.mobile_number){
+    data = await service.search(req.query.mobile_number)
+  } else {
+    //return next({status: 400, message: "no query found"})
+    data = []
+  }
   console.log(data);
   res.json({
     data: data,

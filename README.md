@@ -364,6 +364,7 @@ so that I can quickly access a customer's reservation when they call about their
 > The following function will perform the correct search.
 >
 > ```javascript
+> 
 > function search(mobile_number) {
 >   return knex("reservations")
 >     .whereRaw(
@@ -373,7 +374,6 @@ so that I can quickly access a customer's reservation when they call about their
 >     .orderBy("reservation_date");
 > }
 > ```
-
 ### US-08 Change an existing reservation
 
 As a restaurant manager<br/>
