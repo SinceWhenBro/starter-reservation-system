@@ -24,9 +24,9 @@ finish tables, create new reservations, edit new reservations and see future and
 # Tehcnology Used:
 
 * Bullet list
-              * Nested bullet
+  * Nested bullet
                   * Sub-nested bullet etc
-          * Bullet list item 2
+* Bullet list item 2
 
 
 
