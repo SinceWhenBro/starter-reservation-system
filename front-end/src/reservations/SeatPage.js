@@ -25,6 +25,7 @@ function SeatPage(){
       }
 
     async function handleSubmit(event){
+        const abortController = new AbortController();
         event.preventDefault();
         try{
             await updateSeats({ "reservation_id": Number(reservation_id)}, Number(tableId))
@@ -34,6 +35,7 @@ function SeatPage(){
             setErrors(error.message);
             return;
         }
+        return () => abortController.abort();
     }
 
     function handleCancel(event){

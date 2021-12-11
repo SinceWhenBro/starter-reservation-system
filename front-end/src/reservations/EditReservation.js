@@ -23,8 +23,12 @@ function EditReservation(){
 
     useEffect((loadReservation), [reservation_id]);
 
+    function handleCancel(event) {
+        history.go(1);
+      }
+
     async function handleSubmit(event, reservationData) {
-        
+        const abortController = new AbortController();
         event.preventDefault();
         try {
           await updateReservation({
@@ -39,13 +43,14 @@ function EditReservation(){
           setReservationErrors([error.message]);
           return;
         }
+        return () => abortController.abort();
       }
       return (
           
           <div>
             { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
             <h1>Edit a reservation</h1>
-            <ReservationForm handleSubmit={handleSubmit} initialState={reservation}/>
+            <ReservationForm handleSubmit={handleSubmit} initialState={reservation} handleCancel={handleCancel}/>
           </div>
       )
 }

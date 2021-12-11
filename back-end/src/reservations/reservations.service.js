@@ -9,7 +9,8 @@ function create(reservationData){
 function list(reservationDate){
     return db("reservations as r")
     .where({"r.reservation_date": reservationDate})
-    .whereNot({"r.status": "finished", "r.status": "cancelled"})
+    .whereNot({"r.status": "finished"})
+    .whereNot({"r.status": "cancelled"})
     .orderBy("r.reservation_time");
 }
 

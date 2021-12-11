@@ -132,7 +132,7 @@ export async function finishTable(table_id, signal){
   return await fetchJson(url, options, {});
 }
 
-export async function updateReservation(reservation){
+export async function updateReservation(reservation, signal){
   const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}`
   const options = {
     method: "PUT",
@@ -142,7 +142,7 @@ export async function updateReservation(reservation){
   return await fetchJson(url, options, {});
 }
 
-export async function updateReservationStatus(reservation){
+export async function updateReservationStatus(reservation, signal){
   const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}/status`
   const options = {
     method: "PUT",

@@ -7,8 +7,13 @@ function CreateReservation(){
     const history = useHistory();
     const [reservationErrors, setReservationsErrors] = useState([]);
     
+    function handleCancel(event) {
+        event.preventDefault();
+        history.goBack();
+      }
+
     async function handleSubmit(event, reservationData) {
-        
+        const abortController = new AbortController();
         event.preventDefault();
         try {
           await createReservation({
@@ -23,13 +28,14 @@ function CreateReservation(){
           setReservationsErrors(error.message);
           return;
         }
+        return () => abortController.abort();
       }
       return (
           
           <div>
             { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => <li className="alert alert-danger">{r}</li>)}</ul> }
             <h1>Create a reservation</h1>
-            <ReservationForm handleSubmit={handleSubmit}/>
+            <ReservationForm handleSubmit={handleSubmit} handleCancel={handleCancel}/>
 
           </div>
       )

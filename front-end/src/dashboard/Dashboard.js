@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import ListedTables from "../tables/ListedTables";
 import ListedReservations from "../reservations/ListedReservations";
-
+const moment = require("moment");
 /**
  * Defines the dashboard page.
  * @param date
@@ -42,6 +43,35 @@ function Dashboard({ date }) {
       return () => abortController.abort();
   }
 
+  let queryDate = new URLSearchParams(useLocation().search).get("date")
+  console.log(queryDate)
+  if(!queryDate){
+    queryDate = moment().format("YYYY-MM-DD");
+    // const today = new Date()
+    // queryDate = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
+  }
+  const prevDay = moment(queryDate).subtract(1,"days");
+  const nextDate = moment(queryDate).add(1,"days");
+  const nextDateString = moment(nextDate).format("YYYY-MM-DD");
+  const prevDateString = moment(prevDay).format("YYYY-MM-DD");
+  // const currentDate = new Date(queryDate);
+  // console.log(currentDate)
+  // const nextDate = currentDate;
+  // nextDate.setDate(nextDate.getDate()+1)
+  // const nextDateString = `${nextDate.getFullYear()}-${nextDate.getMonth()+1}-${nextDate.getDate()}`
+
+  // let queryDate = new URLSearchParams(useLocation().search).get("date")
+  // console.log(queryDate)
+  // if(!queryDate){
+  //   const today = new Date()
+  //   queryDate = `${today.getUTCFullYear()}-${today.getUTCMonth()+1}-${today.getUTCDate()}`
+  // }
+  // const currentDate = new Date(queryDate);
+  // console.log(currentDate)
+  // const nextDate = currentDate;
+  // nextDate.setUTCDate(nextDate.getUTCDate()+1)
+  // const nextDateString = `${nextDate.getUTCFullYear()}-${nextDate.getUTCMonth()+1}-${nextDate.getUTCDate()}`
+
   return (
     <main>
       <h1>Dashboard</h1>
@@ -68,6 +98,9 @@ function Dashboard({ date }) {
           />
         ))}
       </div>
+      <Link to={`/dashboard?date=${nextDateString}`}><button>Next</button></Link>
+      <Link to={`/dashboard`}><button>Today</button></Link>
+      <Link to={`/dashboard?date=${prevDateString}`}><button>Previous</button></Link>
     </main>
   );
 }

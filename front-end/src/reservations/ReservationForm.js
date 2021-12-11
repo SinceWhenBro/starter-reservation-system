@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { createReservation } from "../utils/api";
-//create state
-
-//save each input as a key value pair in an obj
-
-//make a post request to a server
 
 function ReservationForm({
   handleSubmit,
+  handleCancel,
   initialState = {
     first_name: "",
     last_name: "",
@@ -20,9 +14,6 @@ function ReservationForm({
 }){
 
   const [reservationData, setReservationData] = useState(initialState);
-  
-  
-  const history = useHistory();
 
   function updateReservationData(){
       if(initialState.reservation_id !== reservationData.reservation_id){
@@ -35,11 +26,6 @@ function ReservationForm({
   function handleChange({ target }) {
     setReservationData({ ...reservationData, [target.name]: target.value });
   }
-
-  function handleCancel(event) {
-    history.go(1);
-  }
-
 
   return (
     <div>
