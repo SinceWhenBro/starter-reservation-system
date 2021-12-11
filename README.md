@@ -23,10 +23,14 @@ finish tables, create new reservations, edit new reservations and see future and
 
 # Tehcnology Used:
 
-* Bullet list
-  * Nested bullet
-                  * Sub-nested bullet etc
-* Bullet list item 2
+* JavaScript
+  * React.js
+  * Express.js
+  * PostgreSQL
+  * HTML
+  * CSS
+  * Moment.js library
+
 
 
 
