@@ -98,9 +98,9 @@ function Dashboard({ date }) {
           />
         ))}
       </div>
-      <Link to={`/dashboard?date=${nextDateString}`}><button>Next</button></Link>
-      <Link to={`/dashboard`}><button>Today</button></Link>
       <Link to={`/dashboard?date=${prevDateString}`}><button>Previous</button></Link>
+      <Link to={`/dashboard`}><button>Today</button></Link>
+      <Link to={`/dashboard?date=${nextDateString}`}><button>Next</button></Link>
     </main>
   );
 }
