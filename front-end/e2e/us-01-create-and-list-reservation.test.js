@@ -61,10 +61,13 @@ describe("US-01 - Create and list reservations - E2E", () => {
     });
 
     test("canceling form returns to previous page", async () => {
+      console.log("start")
       await page.goto(`${baseURL}/dashboard`, { waitUntil: "networkidle0" });
+      console.log("loaded dashboard")
       await page.goto(`${baseURL}/reservations/new`, {
         waitUntil: "networkidle0",
       });
+      console.log("loaded new form")
 
       const [cancelButton] = await page.$x(
         "//button[contains(translate(., 'ACDEFGHIJKLMNOPQRSTUVWXYZ', 'acdefghijklmnopqrstuvwxyz'), 'cancel')]"
@@ -73,6 +76,7 @@ describe("US-01 - Create and list reservations - E2E", () => {
       if (!cancelButton) {
         throw new Error("button containing cancel not found.");
       }
+      console.log("cancel button")
 
       await page.screenshot({
         path: ".screenshots/us-01-cancel-before.png",

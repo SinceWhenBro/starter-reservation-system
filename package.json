@@ -12,7 +12,7 @@
     "preinstall": "cd ./back-end && npm install",
     "install": "cd ./front-end && npm install",
     "start": "npx concurrently 'npm run start:backend' 'npm run start:frontend'",
-    "start:backend": "npm --prefix ./back-end start",
+    "start:backend": "npm run --prefix ./back-end start:dev",
     "start:frontend": "npm --prefix ./front-end start",
     "start:dev": "npx concurrently \"npm run start:dev --prefix ./back-end\" \"npm start --prefix ./front-end\" ",
     "test": "npm run test:frontend && npm run test:backend",
