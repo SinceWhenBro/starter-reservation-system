@@ -31,6 +31,10 @@ finish tables, create new reservations, edit new reservations and see future and
   * CSS
   * Moment.js library
 
+# Installation Insturctions
 
+1. run 'npm install --legacy-peer-deps'
+2. run 'npm run start'
+3. run 'npm run test'
 
 
