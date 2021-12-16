@@ -6,6 +6,8 @@ function ListedReservations({ reservation }){
   const history = useHistory();
   
   async function handleCancel(event){
+    const abortController = new AbortController();
+      
       if(window.confirm("Do you want to cancel this reservation?"))
       {
         try{
@@ -16,6 +18,7 @@ function ListedReservations({ reservation }){
         }
          
       }
+      return () => abortController.abort();
     }
     return (
         <div className=" border col-5 tableCard justify-content-center" data-reservation-id-status={reservation.reservation_id}>

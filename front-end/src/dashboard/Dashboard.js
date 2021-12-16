@@ -76,7 +76,7 @@ function Dashboard({ date }) {
     <main>
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date</h4>
+        <h4 className="mb-0">Reservations for date:</h4>
       </div>
       <ErrorAlert error={reservationsError} />
       <div>
@@ -88,15 +88,6 @@ function Dashboard({ date }) {
         ))}
         </div>
       <div>
-      {tables.map((t) => (
-          <ListedTables
-            key={t.table_id}
-            table={t}
-            setTables={setTables}
-            setReservations={setReservations}
-            date={date}
-          />
-        ))}
       </div>
       <Link to={`/dashboard?date=${prevDateString}`}><button>Previous</button></Link>
       <Link to={`/dashboard`}><button>Today</button></Link>

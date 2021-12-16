@@ -6,11 +6,13 @@ function ListedTables({ table, setTables, setReservations, date }){
     const history = useHistory();
 
     async function finishHandler(event){
+      
       if(window.confirm("Is this table ready to seat new guests? This cannot be undone.")){
         //todo make api call for DELETE
         await finishTable(table.table_id)
         history.go(0);
       }
+      
     }
 
     return (
