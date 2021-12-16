@@ -29,9 +29,9 @@ function Tables(){
     }
     // submit handler
     function submitHandler(event) {
-        const abortController = new AbortController();
         event.preventDefault();
         event.stopPropagation();
+        const abortController = new AbortController();
         setError(null)
         createTable(table)
             .then(() => {
@@ -43,7 +43,7 @@ function Tables(){
 
     return (
         <div>
-            { tableErrors.length === 0 ? null : <ul >{tableErrors.map((r) => <li className="alert alert-danger" key={r.reservation_id}>{r}</li>)}</ul> }
+            { tableErrors.length === 0 ? null : <ul >{tableErrors.map((t, index) => <li className="alert alert-danger" key={index}>{t}</li>)}</ul> }
             <h1>Create a table:</h1>
             <form onSubmit={submitHandler}>
                 <div className="form-group row">

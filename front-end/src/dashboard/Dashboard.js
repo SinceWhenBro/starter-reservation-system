@@ -16,11 +16,7 @@ function Dashboard({ date }) {
   const [reservationsError, setReservationsError] = useState(null);
   const [tables, setTables] = useState([]);
   const [tablesError, setTablesError] = useState(null);
-  const tableList = tables.map((table) => 
-    <li key ={table.table_name}>
-      {JSON.stringify(table)}
-    </li>
-  );
+  
 
   useEffect(loadDashboard, [date]);
   useEffect(loadTables, []);
@@ -76,9 +72,12 @@ function Dashboard({ date }) {
     <main>
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date:</h4>
+        <h4 className="mb-0">Reservations for date: {queryDate}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
+      <Link to={`/dashboard?date=${prevDateString}`}><button>Previous</button></Link>
+      <Link to={`/dashboard`}><button>Today</button></Link>
+      <Link to={`/dashboard?date=${nextDateString}`}><button>Next</button></Link>
       <div>
       {reservations.map((r) => (
           <ListedReservations
@@ -87,11 +86,18 @@ function Dashboard({ date }) {
           />
         ))}
         </div>
+
+        <h4>Tables:</h4>
+        <div>
+      {tables.map((t) => (
+          <ListedTables
+            key={t.reservation_id}
+            table={t}
+          />
+        ))}
+        </div>
       <div>
       </div>
-      <Link to={`/dashboard?date=${prevDateString}`}><button>Previous</button></Link>
-      <Link to={`/dashboard`}><button>Today</button></Link>
-      <Link to={`/dashboard?date=${nextDateString}`}><button>Next</button></Link>
     </main>
   );
 }

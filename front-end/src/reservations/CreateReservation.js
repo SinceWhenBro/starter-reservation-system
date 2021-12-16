@@ -13,8 +13,8 @@ function CreateReservation(){
       }
 
     async function handleSubmit(event, reservationData) {
-        const abortController = new AbortController();
         event.preventDefault();
+        const abortController = new AbortController();
         try {
           await createReservation({
             ...reservationData,
@@ -33,7 +33,7 @@ function CreateReservation(){
       return (
           
           <div>
-            { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => (<li className="alert alert-danger" key={r.reservation_id}>{r}</li>))}</ul> }
+            { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r,index) => (<li className="alert alert-danger" key={index}>{r}</li>))}</ul> }
             <h1>Create a reservation</h1>
             <ReservationForm handleSubmit={handleSubmit} handleCancel={handleCancel}/>
 

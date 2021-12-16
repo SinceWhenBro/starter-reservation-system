@@ -8,8 +8,9 @@ function SearchPage(){
     const [reservationsError, setReservationsError] = useState([]);
 
     function handleFind(event){
-        const abortController = new AbortController();
+        
         event.preventDefault();
+        const abortController = new AbortController();
         listReservations({ mobile_number: phoneNumber })
             .then(setReservations)
             .catch(setReservationsError);

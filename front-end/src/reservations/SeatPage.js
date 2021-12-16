@@ -25,8 +25,8 @@ function SeatPage(){
       }
 
     async function handleSubmit(event){
-        const abortController = new AbortController();
         event.preventDefault();
+        const abortController = new AbortController();
         try{
             await updateSeats({ "reservation_id": Number(reservation_id)}, Number(tableId))
             history.push("/dashboard")
