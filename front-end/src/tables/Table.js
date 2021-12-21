@@ -43,7 +43,7 @@ function Tables(){
 
     return (
         <div>
-            { tableErrors.length === 0 ? null : <ul >{tableErrors.map((t) => <li className="alert alert-danger" key={t.message}>{t}</li>)}</ul> }
+            { tableErrors.length === 0 ? null : <ul >{tableErrors.map((t) => <li className="alert alert-danger" key={t}>{t}</li>)}</ul> }
             <h1>Create a table:</h1>
             <form onSubmit={submitHandler}>
                 <div className="form-group row">

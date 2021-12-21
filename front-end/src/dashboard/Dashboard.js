@@ -91,7 +91,7 @@ function Dashboard({ date }) {
         <div>
       {tables.map((t) => (
           <ListedTables
-            key={t.reservation_id}
+            key={t.table_id}
             table={t}
           />
         ))}
