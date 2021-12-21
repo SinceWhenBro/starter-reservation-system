@@ -48,7 +48,7 @@ function EditReservation(){
       return (
           
           <div>
-            { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r, index) => (<li className="alert alert-danger" key={index}>{r}</li>))}</ul> }
+            { reservationErrors.length === 0 ? null : <ul >{reservationErrors.map((r) => (<li className="alert alert-danger" key={r.message}>{r}</li>))}</ul> }
             <h1>Edit a reservation</h1>
             <ReservationForm handleSubmit={handleSubmit} initialState={reservation} handleCancel={handleCancel}/>
           </div>
