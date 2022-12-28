@@ -1,6 +1,6 @@
 # Capstone: Restaurant Reservation System
 
-Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard
+Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard (Must redeploy through netlify as Heroku has eliminated their free plan).
 
 # API Documentation: 
 
