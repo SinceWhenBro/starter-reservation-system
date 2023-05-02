@@ -234,15 +234,6 @@ so that reservations are accurate and current.
 # Search by Phone Number:
 ![image](https://user-images.githubusercontent.com/70001770/145658842-216cbcb9-5238-4866-968e-90ce2c942ab7.png)
 
-# Tehcnology Used:
-
-* JavaScript
-  * React.js
-  * Express.js
-  * PostgreSQL
-  * HTML
-  * CSS
-  * Moment.js library
 
 # Installation Insturctions
 
