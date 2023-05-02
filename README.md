@@ -20,6 +20,13 @@ The table below describes the folders in this starter repository:
 
 ## Database Setup
 
+1. Set up four new ElephantSQL database instances - development, test, preview, and production - by following the instructions in the "PostgreSQL: Creating & Deleting Databases" checkpoint.
+2. After setting up your database instances, connect DBeaver to your new database instances by following the instructions in the "PostgreSQL: Installing DBeaver" checkpoint.
+
+### Knex
+
+Run `npx knex` commands from within the `back-end` folder, which is where the `knexfile.js` file is located.
+
 # Dashboard:
 ![image](https://user-images.githubusercontent.com/70001770/145658810-6acb8cf3-97f9-4a8f-aeb0-b5067f7ef08c.png)
 
