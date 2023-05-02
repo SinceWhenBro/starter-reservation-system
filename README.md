@@ -37,6 +37,37 @@ Run `npx knex` commands from within the `back-end` folder, which is where the `k
 6. Run `npm install` to install project dependencies.
 7. Run `npm run start:dev` to start your server in development mode.
 
+## User Stories
+
+### US-01 Create and list reservations
+
+As a restaurant manager
+I want to create a new reservation when a customer calls
+so that I know how many customers will arrive at the restaurant on a given day.
+
+#### Acceptance Criteria
+
+1. The /reservations/new page will
+ - have the following required and not-nullable fields:
+  - First name: <input name="first_name" />
+  - Last name: <input name="last_name" />
+  - Mobile number: <input name="mobile_number" />
+  - Date of reservation: <input name="reservation_date" />
+  - Time of reservation: <input name="reservation_time" />
+  - Number of people in the party, which must be at least 1 person. <input name="people" />
+ - display a Submit button that, when clicked, saves the new reservation, then displays the /dashboard page for the date of the new reservation
+ - display a Cancel button that, when clicked, returns the user to the previous page
+ - display any error messages returned from the API
+2. The /dashboard page will
+ - list all reservations for one date only. (E.g. if the URL is /dashboard?date=2035-12-30 then send a GET to /reservations?date=2035-12-30 to list the reservations for that date). The date is defaulted to today, and the reservations are sorted by time.
+ - display next, previous, and today buttons that allow the user to see reservations on other dates
+ - display any error messages returned from the API
+3. The /reservations API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
+ - seed the reservations table with the data contained in ./back-end/src/db/seeds/00-reservations.json
+
+ 
+  
+
 # Dashboard:
 ![image](https://user-images.githubusercontent.com/70001770/145658810-6acb8cf3-97f9-4a8f-aeb0-b5067f7ef08c.png)
 
