@@ -27,6 +27,16 @@ The table below describes the folders in this starter repository:
 
 Run `npx knex` commands from within the `back-end` folder, which is where the `knexfile.js` file is located.
 
+## Installation 
+
+1. Fork and clone this repository.
+2. Run `cp ./back-end/.env.sample ./back-end/.env`.
+3. Update the `./back-end/.env` file with the connection URL's to your ElephantSQL database instance.
+4. Run `cp ./front-end/.env.sample ./front-end/.env`.
+5. You should not need to make changes to the `./front-end/.env` file unless you want to connect to a backend at a location other than `http://localhost:5001`.
+6. Run `npm install` to install project dependencies.
+7. Run `npm run start:dev` to start your server in development mode.
+
 # Dashboard:
 ![image](https://user-images.githubusercontent.com/70001770/145658810-6acb8cf3-97f9-4a8f-aeb0-b5067f7ef08c.png)
 
