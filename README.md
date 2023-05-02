@@ -237,6 +237,6 @@ so that reservations are accurate and current.
 
 # Installation Insturctions
 
-1. run 'npm install --legacy-peer-deps'
+>1. run 'npm install --legacy-peer-deps'
 2. run 'npm run start'
 3. run 'npm run test'
