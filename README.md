@@ -4,8 +4,6 @@
 
 >You are a full stack app developer at Periodic Tables, a startup that is creating a reservation system for fine dining restaurants. The software is used only by restaurant personnel when a customer calls to request a reservation. At this point, the customers will not access the system online.
 
-Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard (Must redeploy through netlify as Heroku has eliminated their free plan).
-
 ## Technology Used
 - React
    - React hooks
@@ -18,6 +16,8 @@ Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard (Must redepl
 - HTML
 - JavaScript
 - RESTful APIs
+
+Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard (Must redeploy through netlify as Heroku has eliminated their free plan).
 
 ## Existing files
 
