@@ -165,7 +165,7 @@ Acceptance Criteria
    - Clicking the Seat button changes the status to "seated" and hides the Seat button.the system will: - Send a `DELETE` request to `/tables/:table_id/seat` in order    - Clicking the Finish button associated with the table changes the reservation status to "finished" and removes the reservation from the dashboard.
    - To set the status, PUT to /reservations/:reservation_id/status with a body of {data: { status: "<new-status>" } } where <new-status> is one of booked, seated, or finished. Please note that this is only tested in the back-end for now.
 
-### US-07 Reservation Status
+### US-07 Search for a reservation by phone number
 
 As a restaurant manager
 I want to search for a reservation by phone number (partial or complete)
