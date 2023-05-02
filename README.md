@@ -177,11 +177,33 @@ so that I can quickly access a customer's reservation when they call about their
    - Display a search box `<input name="mobile_number" />` that displays the placeholder text: "Enter a customer's phone number"
    - Display a "Find" button next to the search box.
    - Clicking on the "Find" button will submit a request to the server (e.g. GET `/reservations?mobile_number=800-555-1212`)   
-      - Then the system will look for the reservation(s) in the database and display all matched records on the /search page using the same reservations list component as the /dashboard page.
+      - Then the system will look for the reservation(s) in the database and display all matched records on the `/search` page using the same reservations list component as the `/dashboard` page.
       - The search page will display all reservations matching the phone number, regardless of status.
-   - display No reservations found if there are no records found after clicking the Find button.
+   - display `No reservations found` if there are no records found after clicking the Find button.
    
+### US-08 Change an existing reservation
 
+As a restaurant manager
+I want to be able to modify a reservation if a customer calls to change or cancel their reservation
+so that reservations are accurate and current.
+
+#### Acceptance Criteria
+
+1. The `/dashboard` and the `/search` page will
+   - Display an "Edit" button next to each reservation
+      - Clicking the "Edit" button will navigate the user to the `/reservations/:reservation_id/edit page`
+   - The "Edit" button must be a link with an `href` attribute that equals `/reservations/${reservation_id}/edit`, so it can be found by the tests.
+   - Display a "Cancel" button next to each reservation
+   - The Cancel button must have a `data-reservation-id-cancel={reservation.reservation_id}` attribute, so it can be found by the tests.
+   - Display `No reservations found` if there are no records found after clicking the Find button.
+   - Clicking the "Cancel" button will display the following confirmation: "Do you want to cancel this reservation? This cannot be undone."
+      - Clicking "Ok" on the confirmation dialog, sets the reservation status to `cancelled`, and the results on the page are refreshed.
+         - set the status of the reservation to `cancelled` using a PUT to `/reservations/:reservation_id/status` with a body of `{data: { status: "cancelled" } }`.
+      - Clicking "Cancel" on the confirmation dialog makes no changes.
+2. The `/reservations/:reservation_id/edit` page will display the reservation form with the existing reservation data filled in
+   - Only reservations with a status of "booked" can be edited.
+   - Clicking the "Submit" button will save the reservation, then displays the previous page.
+   - Clicking "Cancel" makes no changes, then display the previous page.
 
 
 
