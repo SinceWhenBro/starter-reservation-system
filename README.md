@@ -4,12 +4,19 @@
 
 Live Site: https://restaurant-res-client-tw.herokuapp.com/dashboard (Must redeploy through netlify as Heroku has eliminated their free plan).
 
-# Existing files
+## Existing files
 
-# Description:
+This repository is set up as a monorepo, meaning that the frontend and backend projects are in one repository. This allows you to open both projects in the same editor.
 
-Application designed to manage restaurant reservations and seating. From a user perspective you are able to add new tables, seat tables, 
-finish tables, create new reservations, edit new reservations and see future and past reservations.
+As you work through the user stories listed later in this document, you will be writing code that allows your frontend and backend applications to talk to each other. You will also write code to allow your controllers and services to connect to, and query, your PostgreSQL database via Knex.
+
+The table below describes the folders in this starter repository:
+
+|------------|------------|
+| Folder/filepath | Description |
+| ./back-end | The backend project, which runs on localhost:5001 by default. |
+| ./front-end | The frontend project, which runs on localhost:3000 by default. |
+|------------|------------|
 
 # Dashboard:
 ![image](https://user-images.githubusercontent.com/70001770/145658810-6acb8cf3-97f9-4a8f-aeb0-b5067f7ef08c.png)
