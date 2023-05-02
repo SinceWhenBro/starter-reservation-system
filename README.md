@@ -14,7 +14,7 @@ The table below describes the folders in this starter repository:
 
 
 | Folder/filepath | Description |
-|------------|------------|
+| ------------ | ------------ |
 | ./back-end | The backend project, which runs on localhost:5001 by default. |
 | ./front-end | The frontend project, which runs on localhost:3000 by default. |
 
