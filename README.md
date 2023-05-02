@@ -48,22 +48,22 @@ so that I know how many customers will arrive at the restaurant on a given day.
 #### Acceptance Criteria
 
 1. The `/reservations/new` page will
-   - have the following required and not-nullable fields:
+   - Have the following required and not-nullable fields:
      - First name: `<input name="first_name" />`
       - Last name: `<input name="last_name" />`
       - Mobile number: `<input name="mobile_number" />`
       - Date of reservation: `<input name="reservation_date" />`
       - Time of reservation: `<input name="reservation_time" />`
       - Number of people in the party, which must be at least 1 person.` <input name="people" />`
-   - display a `Submit` button that, when clicked, saves the new reservation, then displays the `/dashboard` page for the date of the new reservation
-   - display a `Cancel` button that, when clicked, returns the user to the previous page
-   - display any error messages returned from the API
+   - Display a `Submit` button that, when clicked, saves the new reservation, then displays the `/dashboard` page for the date of the new reservation
+   - Display a `Cancel` button that, when clicked, returns the user to the previous page
+   - Display any error messages returned from the API
 2. The `/dashboard` page will
-   - list all reservations for one date only. (E.g. if the URL is `/dashboard?date=2035-12-30 `then send a GET to `/reservations?date=2035-12-30` to list the reservations for that date). The date is defaulted to today, and the reservations are sorted by time.
-   - display next, previous, and today buttons that allow the user to see reservations on other dates
-   - display any error messages returned from the API
+   - List all reservations for one date only. (E.g. if the URL is `/dashboard?date=2035-12-30 `then send a GET to `/reservations?date=2035-12-30` to list the reservations for that date). The date is defaulted to today, and the reservations are sorted by time.
+   - Display next, previous, and today buttons that allow the user to see reservations on other dates
+   - Display any error messages returned from the API
 3. The `/reservations` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
-   - seed the reservations table with the data contained in `./back-end/src/db/seeds/00-reservations.json`
+   - Seed the reservations table with the data contained in `./back-end/src/db/seeds/00-reservations.json`
 
 ### US-02 Create reservation on a future, working date
 
@@ -90,7 +90,7 @@ so that I know how many customers will arrive at the restaurant on a given day.
    - The reservation time is before 10:30 AM.
    - The reservation time is after 9:30 PM, because the restaurant closes at 10:30 PM and the customer needs to have time to enjoy their meal.
    - The reservation date and time combination is in the past. Only future reservations are allowed. E.g., if it is noon, only allow reservations starting after noon today.
-   - display any error messages returned from the API
+   - Display any error messages returned from the API
 2. The `/reservations` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
 
 ### US-04 Seat Reservation
@@ -103,36 +103,87 @@ so that I know which tables are occupied and free.
 #### Acceptance Criteria
 
 1. The `/tables/new` page will
-   - have the following required and not-nullable fields:
+   - Have the following required and not-nullable fields:
       - Table name: `<input name="table_name" />`, which must be at least 2 characters long.
       - Capacity: `<input name="capacity" />`, this is the number of people that can be seated at the table, which must be at least 1 person.
       - Mobile number: `<input name="mobile_number" />`
       - Date of reservation: `<input name="reservation_date" />`
       - Time of reservation: `<input name="reservation_time" />`
       - Number of people in the party, which must be at least 1 person.` <input name="people" />`
-   - display a `Submit` button that, when clicked, saves the new reservation, then displays the `/dashboard` page
-   - display a `Cancel` button that, when clicked, returns the user to the previous page
+   - Display a `Submit` button that, when clicked, saves the new reservation, then displays the `/dashboard` page
+   - Display a `Cancel` button that, when clicked, returns the user to the previous page
 2. The `/dashboard` page will
-   - display a list of all reservations in one area.
-   - each reservation in the list will:
+   - Display a list of all reservations in one area.
+   - Each reservation in the list will:
       - Display a "Seat" button on each reservation.
       - The "Seat" button must be a link with an href attribute that equals /reservations/${reservation_id}/seat, so it can be found by the tests.
-   - display a list of all tables, sorted by table_name, in another area of the dashboard
+   - Display a list of all tables, sorted by table_name, in another area of the dashboard
       - Each table will display "Free" or "Occupied" depending on whether a reservation is seated at the table.
       - The "Free" or "Occupied" text must have a data-table-id-status=${table.table_id} attribute, so it can be found by the tests.
 3. The `/reservations/:reservation_id/seat` page will
-   - have the following required and not-nullable fields:
+   - Have the following required and not-nullable fields:
       - Table number: `<select name="table_id" />`. The text of each option must be `{table.table_name} - {table.capacity}` so the tests can find the options.
-   - do not seat a reservation with more people than the capacity of the table
-   - display a `Submit` button that, when clicked, assigns the table to the reservation then displays the `/dashboard` page
+   - Do not seat a reservation with more people than the capacity of the table
+   - Display a `Submit` button that, when clicked, assigns the table to the reservation then displays the `/dashboard` page
    - PUT to `/tables/:table_id/seat/` in order to save the table assignment. The body of the request must be `{ data: { reservation_id: x } }` where X is the reservation_id of the reservation being seated. The tests do not check the body returned by this request.
-   - display a `Cancel` button that, when clicked, returns the user to the previous page
+   - Display a `Cancel` button that, when clicked, returns the user to the previous page
 4. The tables table must be seeded with the following data:
    - `Bar #1` & `Bar #2`, each with a capacity of 1.
    - `#1` & `#2`, each with a capacity of 6.
 5. The `/tables` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
-   - if the table capacity is less than the number of people in the reservation, return 400 with an error message.
-   - if the table is occupied, return 400 with an error message.
+   - If the table capacity is less than the number of people in the reservation, return 400 with an error message.
+   - If the table is occupied, return 400 with an error message.
+
+### US-05 Finish an occupied table 
+
+As a restaurant manager
+I want to free up an occupied table when the guests leave
+so that I can seat new guests at that table.
+
+#### Acceptance Criteria
+
+1. The `/dashboard` page will
+   - Display a "Finish" button on each occupied table.
+   - The "Finish" button must have a `data-table-id-finish={table.table_id}` attribute, so it can be found by the tests.
+   - Clicking the "Finish" button will display the following confirmation: "Is this table ready to seat new guests? This cannot be undone." If the user selects "Ok" the system will: - Send a `DELETE` request to `/tables/:table_id/seat` in order to remove the table assignment. The tests do not check the body returned by this request. - The server should return 400 if the table is not occupied. - Refresh the list of tables to show that the table is now available.today.
+   - Clicking the "Cancel" button makes no changes.
+
+### US-06 Reservation Status
+
+As a restaurant manager
+I want a reservation to have a status of either booked, seated, or finished
+so that I can see which reservation parties are seated, and finished reservations are hidden from the dashboard.
+
+Acceptance Criteria
+
+#### Acceptance Criteria
+
+1. The `/dashboard` page will
+   - Display the status of the reservation. The default status is "booked"
+      - the status text must have a `data-reservation-id-status={reservation.reservation_id} attribute`, so it can be found by the tests.
+   - Display the Seat button only when the reservation status is "booked".
+   - Clicking the Seat button changes the status to "seated" and hides the Seat button.the system will: - Send a `DELETE` request to `/tables/:table_id/seat` in order    - Clicking the Finish button associated with the table changes the reservation status to "finished" and removes the reservation from the dashboard.
+   - To set the status, PUT to /reservations/:reservation_id/status with a body of {data: { status: "<new-status>" } } where <new-status> is one of booked, seated, or finished. Please note that this is only tested in the back-end for now.
+
+### US-07 Reservation Status
+
+As a restaurant manager
+I want to search for a reservation by phone number (partial or complete)
+so that I can quickly access a customer's reservation when they call about their reservation.
+
+#### Acceptance Criteria
+
+1. The `/search` page will
+   - Display a search box `<input name="mobile_number" />` that displays the placeholder text: "Enter a customer's phone number"
+   - Display a "Find" button next to the search box.
+   - Clicking on the "Find" button will submit a request to the server (e.g. GET `/reservations?mobile_number=800-555-1212`)   
+      - Then the system will look for the reservation(s) in the database and display all matched records on the /search page using the same reservations list component as the /dashboard page.
+      - The search page will display all reservations matching the phone number, regardless of status.
+   - display No reservations found if there are no records found after clicking the Find button.
+   
+
+
+
 
 # Dashboard:
 ![image](https://user-images.githubusercontent.com/70001770/145658810-6acb8cf3-97f9-4a8f-aeb0-b5067f7ef08c.png)
